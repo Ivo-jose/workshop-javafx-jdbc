@@ -43,8 +43,9 @@ public class MainViewController implements Initializable{
 	}
 	
 	@Override
-	public void initialize(URL uri, ResourceBundle rb) {
+	public void initialize(URL url, ResourceBundle rb) {
 	}
+	
 	
 	//Criando um função para abrir outra tela(Pode ser usado em mais de uma tela)
 	private synchronized void loadView(String absoluteName) {
