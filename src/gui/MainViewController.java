@@ -18,62 +18,57 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.DepartmentService;
 
-public class MainViewController implements Initializable{
+public class MainViewController implements Initializable {
 
 	@FXML
 	private MenuItem menuItemSeller;
+	
 	@FXML
 	private MenuItem menuItemDepartment;
+	
 	@FXML
 	private MenuItem menuItemAbout;
-	
+
 	@FXML
 	public void onMenuItemSellerAction() {
 		System.out.println("onMenuItemSellerAction");
 	}
-	
+
 	@FXML
 	public void onMenuItemDepartmentAction() {
-		//Pedindo para o método loadView ler a tela de DepartmentList.fxml
-		loadView("/gui/DepartmentList.fxml",(DepartmentListController controller) -> {
+		loadView("/gui/DepartmentList.fxml", (DepartmentListController controller) -> {
 			controller.setDepartmentService(new DepartmentService());
 			controller.updateTableView();
 		});
 	}
 	
-
 	@FXML
 	public void onMenuItemAboutAction() {
-		//Pedindo para o método loadView ler a tela de About.fxml
 		loadView("/gui/About.fxml", x -> {});
 	}
 	
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL uri, ResourceBundle rb) {
 	}
 	
-	
-	//Criando um função para abrir outra tela(Pode ser usado em mais de uma tela)
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newvBox = loader.load();
-			//Mostrando a view about na view principal
+			VBox newVBox = loader.load();
+			
 			Scene mainScene = Main.getMainScene();
-			//Pegando uma referência para o ScrollPane (MainView)
-			VBox mainVBox = (VBox)((ScrollPane) mainScene.getRoot()).getContent();
-			//Guardando uma referência para o menu
+			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
 			Node mainMenu = mainVBox.getChildren().get(0);
 			mainVBox.getChildren().clear();
-			//Adicionando os filhos
 			mainVBox.getChildren().add(mainMenu);
-			mainVBox.getChildren().addAll(newvBox.getChildren());
+			mainVBox.getChildren().addAll(newVBox.getChildren());
 			
 			T controller = loader.getController();
 			initializingAction.accept(controller);
-			} 
+		}
 		catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
-	}
+	}	
 }

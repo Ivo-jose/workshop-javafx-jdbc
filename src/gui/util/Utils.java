@@ -14,7 +14,7 @@ public class Utils {
 		try {
 			return Integer.parseInt(str);
 		}
-		catch(NumberFormatException e) {
+		catch (NumberFormatException e) {
 			return null;
 		}
 	}

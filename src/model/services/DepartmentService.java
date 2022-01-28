@@ -7,11 +7,10 @@ import model.dao.DepartmentDao;
 import model.entities.Department;
 
 public class DepartmentService {
-	
-	//Declarando uma dependencia 
-	private DepartmentDao dao = DaoFactory.createDepartmentDao();
 
-	public List<Department> findAll(){
+	private DepartmentDao dao = DaoFactory.createDepartmentDao();
+	
+	public List<Department> findAll() {
 		return dao.findAll();
 	}
 	
