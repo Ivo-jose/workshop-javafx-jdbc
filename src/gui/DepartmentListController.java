@@ -97,6 +97,7 @@ public class DepartmentListController implements Initializable {
 			//Criando uma referência para o controlador
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(obj);
+			controller.setDepartmentService(new DepartmentService());
 			controller.updateFormData();
 			
 			//Instanciando um novo Stage para que um palco seja carregado na frente de outro palco
